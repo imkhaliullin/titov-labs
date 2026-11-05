@@ -29,3 +29,16 @@ jobs:
 
       - name: Run tests
         run: python -m pytest -q
+
+      - name: Generate documentation
+        run: |
+          python -m pydoc -w calculator
+          mkdir -p docs
+          mv calculator.html docs/
+
+      - name: Upload documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: calculator-documentation
+          path: docs/calculator.html
+          if-no-files-found: error
